@@ -1,4 +1,6 @@
 import json
+from telethon.tl.functions.messages import GetDialogFiltersRequest
+from kivy.uix.image import Image
 from telethon.sync import TelegramClient
 from telethon.tl.types import InputMessagesFilterVideo
 from telethon.tl.types import InputMessagesFilterDocument
@@ -14,7 +16,7 @@ from kivy.uix.popup import Popup
 import os
 from kivy.uix.recycleview import RecycleView
 # Caricamento credenziali da JSON
-credentials_path = 'mycredentials.json'
+credentials_path = 'mycredentials1.json'
 with open(credentials_path, 'r') as f:
     credentials = json.load(f)
 
@@ -40,7 +42,8 @@ class LoginScreen(Screen):
             multiline=False
         )
         layout.add_widget(self.text_input)
-
+        keyboard = self.create_navigable_keyboard()
+        layout.add_widget(keyboard)
         send_button = Button(text="Accedi", size_hint_y=None, height=50)
         send_button.bind(on_press=self.submit_code)
         layout.add_widget(send_button)
@@ -48,6 +51,26 @@ class LoginScreen(Screen):
         self.add_widget(layout)
 
         self.start_client()
+
+    def create_navigable_keyboard(self):
+        """Crea una tastiera navigabile per dispositivi TV."""
+        keyboard_layout = GridLayout(cols=3, size_hint_y=None, height=200)
+        keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '<', 'OK']
+        
+        for key in keys:
+            btn = Button(text=key, size_hint=(1, 1))
+            btn.bind(on_press=self.handle_key_press)
+            keyboard_layout.add_widget(btn)
+        return keyboard_layout 
+    
+    def handle_key_press(self, instance):
+        """Gestisce la pressione dei tasti nella tastiera personalizzata."""
+        if instance.text == '<':
+            self.text_input.text = self.text_input.text[:-1]
+        elif instance.text == 'OK':
+            self.submit_code(None)
+        else:
+            self.text_input.text += instance.text
 
     def start_client(self):
         """Richiede il codice solo se l'utente non è autenticato."""
@@ -70,8 +93,6 @@ class LoginScreen(Screen):
         except Exception as e:
             print(f"Errore: {e}")
 
-
-
 class SuccessScreen(Screen):
     def __init__(self, message="Login effettuato correttamente!", **kwargs):
         super().__init__(**kwargs)
@@ -79,84 +100,81 @@ class SuccessScreen(Screen):
         layout.add_widget(Label(text=message, font_size='24sp'))
         self.add_widget(layout)
 
+        from kivy.uix.screenmanager import ScreenManager, Screen
 
-class ChatListScreen(Screen):
-    def __init__(self, client, **kwargs):
+class VideoListScreen(Screen):
+    def __init__(self, client, chat, **kwargs):
         super().__init__(**kwargs)
-        self.client = client  # Usiamo il client passato
+        self.client = client
+        self.chat = chat
+        self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
 
-        layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
-        layout.add_widget(Label(text="Le tue chat:", font_size='24sp'))
-        
-        # ScrollView per mostrare la lista chat
-        self.chat_list_layout = GridLayout(cols=1, size_hint_y=None)
-        self.chat_list_layout.bind(minimum_height=self.chat_list_layout.setter('height'))
+        self.video_list = GridLayout(cols=4, spacing=5, size_hint_y=None)
+        self.video_list.bind(minimum_height=self.video_list.setter('height'))
+
         scroll_view = ScrollView()
-        scroll_view.add_widget(self.chat_list_layout)
-        layout.add_widget(scroll_view)
+        scroll_view.add_widget(self.video_list)
 
-        self.load_chats()
+        self.layout.add_widget(scroll_view)
+        self.add_widget(self.layout)
 
-        self.add_widget(layout)
+        self.load_videos()
 
-    def load_chats(self):
-        """Carica e visualizza le chat dell'utente."""
+    def load_videos(self):
         try:
-            chats = self.client.get_dialogs()  # Ora possiamo usare self.client
-            for chat in chats:
-                chat_button = Button(text=chat.name, size_hint_y=None, height=40)
-                chat_button.bind(on_press=self.load_media_from_chat)
-                self.chat_list_layout.add_widget(chat_button)
-        except Exception as e:
-            print(f"Errore durante il caricamento delle chat: {e}")
+            videos1 = self.client.get_messages(self.chat, None, filter=InputMessagesFilterDocument)
+            videos2 = self.client.get_messages(self.chat, None, filter=InputMessagesFilterVideo)
+            videos = videos1 + videos2
 
-    def load_media_from_chat(self, instance):
-        """Carica e visualizza tutti i video disponibili nella chat selezionata."""
-        chat_name = instance.text  # Otteniamo il nome della chat
-        chat = next((c for c in self.client.get_dialogs() if c.name == chat_name), None)
-        
-        if not chat:
-            print(f"Chat '{chat_name}' non trovata.")
-            return
-
-        try:
-            # Otteniamo tutti i video dalla chat
-            videos1 = self.client.get_messages(chat, None, filter=InputMessagesFilterDocument)
-            videos2 = self.client.get_messages(chat, None, filter=InputMessagesFilterVideo)
-            videos = videos1 + videos2  # Unione delle due liste
-            print(len(videos))
-            # Layout del popup
-            popup_layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
-            popup_layout.add_widget(Label(text=f"Video in {chat_name}", font_size='18sp'))
-
-            # Creiamo la lista dei video usando RecycleView
-            video_list = VideoListView(videos, self.download_video)
-            i=0
             video_extensions = {"mp4", "mkv", "avi", "mov", "flv", "webm", "mpeg"}
+            i = 0
 
-            for video in video_list.videos:
-                ext = video.file.mime_type.split("/")[1]
-                #count characters of video.file.name
-                if ext in video_extensions:
-                    if video.file.name is None:
-                        i+=1
-                        video_name = f"{i}.{ext}"
-                    elif len(video.file.name) >= 20:
-                        video_name = f"{video.file.name[:20]}.{ext}"
-                    else:
-                        video_name = video.file.name
-                    x = Button(text=f"{video_name}", size_hint_y=None, height=40)
-                    x.bind(on_press=lambda instance, v=video, vn=video_name: self.download_video(v, vn))
-                    popup_layout.add_widget(x)
+            cleaned_videos = [video for video in videos if video.file and video.file.mime_type]
 
-            # popup_layout.add_widget(video_list)
-            # Creiamo e mostriamo il popup
-            popup = Popup(title="Seleziona un video", content=popup_layout, size_hint=(0.8, 0.8))
-            popup.open()
+            for video in cleaned_videos:
+                try:
+                    ext = video.file.mime_type.split("/")[1] if video.file.mime_type else "novideo"
+
+                    if ext in video_extensions:
+                        video_name = video.file.name if video.file.name else f"{i}.{ext}"
+                        i += 1
+
+                        video_button = Button(
+                        text=video_name,
+                        size_hint_y=None,
+                        height=100,
+                        text_size=(None, None),
+                        halign="center",
+                        valign="middle",
+                        shorten=False,
+                        markup=True
+                        )
+                        video_button.bind(size=lambda btn, size: setattr(btn, "text_size", (size[0] - 20, None)))
+                        video_button.bind(on_press=lambda instance, v=video, vn=video_name: self.show_video_options(v, vn))
+
+                        self.video_list.add_widget(video_button)
+                except Exception as e:
+                    print(f"Errore {e}")
 
         except Exception as e:
             print(f"Errore nel caricamento dei media: {e}")
 
+    def show_video_options(self, video, videoname):
+        """Mostra le opzioni per il video selezionato."""
+        popup_layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
+        popup_layout.add_widget(Label(text=f"{videoname}", font_size='18sp'))
+
+        btn_download = Button(text="Download", size_hint_y=None, height=40)
+        btn_download.bind(on_press=lambda instance: self.download_video(video, videoname))
+
+        btn_play = Button(text="Play Video", size_hint_y=None, height=40)
+        btn_play.bind(on_press=lambda instance: self.play_video(video))
+
+        popup_layout.add_widget(btn_download)
+        popup_layout.add_widget(btn_play)
+
+        popup = Popup(title="Opzioni video", content=popup_layout, size_hint=(0.6, 0.4))
+        popup.open()
 
     def download_video(self, video, videoname=""):
         """Scarica il video selezionato."""
@@ -166,7 +184,62 @@ class ChatListScreen(Screen):
             print(f"Video scaricato con successo: {save_path}")
         except Exception as e:
             print(f"Errore durante il download del video: {e}")
+    
+    def play_video(self, video):
+        """Riproduce il video selezionato."""
+        try:
+            video_path = self.client.download_media(video)
+            if video_path:
+                import subprocess
+                subprocess.Popen(["xdg-open", video_path])  # Apri con il lettore predefinito
+        except Exception as e:
+            print(f"Errore durante la riproduzione del video: {e}")
 
+
+class ChatListScreen(Screen):
+    def __init__(self, client, screen_manager, **kwargs):
+        super().__init__(**kwargs)
+        self.client = client
+        self.screen_manager = screen_manager  # Gestore delle schermate
+
+        layout = BoxLayout(orientation='vertical', padding=2)
+        self.chat_list_layout = GridLayout(cols=4, spacing=5)
+        self.chat_list_layout.bind(minimum_height=self.chat_list_layout.setter('height'))
+
+        scroll_view = ScrollView()
+        scroll_view.add_widget(self.chat_list_layout)
+        layout.add_widget(scroll_view)
+
+        self.load_chats()
+        self.add_widget(layout)
+
+    def load_chats(self):
+        try:
+            chats = self.client.get_dialogs()
+            for chat in chats:
+                chat_button = Button(
+                    text=chat.name,
+                    size_hint_y=None,
+                    height=100,
+                    text_size=(None, None),
+                    halign="center",
+                    valign="middle",
+                    shorten=False,
+                    markup=True
+                )
+                chat_button.bind(size=lambda btn, size: setattr(btn, "text_size", (size[0] - 20, None)))
+                chat_button.bind(on_press=lambda instance, c=chat: self.open_video_list(c))
+                self.chat_list_layout.add_widget(chat_button)
+        except Exception as e:
+            print(f"Errore durante il caricamento delle chat: {e}")
+
+    def open_video_list(self, chat):
+        """Apre la schermata con la lista dei video della chat selezionata."""
+        video_screen = VideoListScreen(self.client, chat, name="video_list")
+        self.screen_manager.add_widget(video_screen)
+        self.screen_manager.current = "video_list"
+
+            
 class VideoListView(RecycleView):
     """Lista di video in formato RecycleView"""
     def __init__(self, videos, download_callback, **kwargs):
@@ -186,11 +259,12 @@ class ChatApp(App):
 
         if self.client.is_user_authorized():
             print("Utente già autenticato")
-            sm.add_widget(ChatListScreen(name="chat_list", client=self.client))
+            sm.add_widget(ChatListScreen(client=self.client, screen_manager=sm, name="chat_list"))
         else:
             sm.add_widget(LoginScreen(name="login", client=self.client))
 
         return sm
+
 
 try:
     if __name__ == "__main__":
