@@ -226,12 +226,12 @@ class VideoListScreen(Screen):
         btn_play = Button(text="Play Video", size_hint_y=None, height=40)
         btn_play.bind(on_press=lambda instance: self.play_video(video))
         
-        btn_play1 = Button(text="Stream", size_hint_y=None, height=40)
-        btn_play1.bind(on_press=lambda instance: self.stream_video(video))
+        # btn_play1 = Button(text="Stream", size_hint_y=None, height=40)
+        # btn_play1.bind(on_press=lambda instance: self.stream_video(video))
 
         popup_layout.add_widget(btn_download)
         popup_layout.add_widget(btn_play)
-        popup_layout.add_widget(btn_play1)
+        # popup_layout.add_widget(btn_play1)
 
         popup = Popup(title="Opzioni video", content=popup_layout, size_hint=(0.6, 0.4))
         popup.open()
@@ -245,27 +245,27 @@ class VideoListScreen(Screen):
         except Exception as e:
             print(f"Errore durante il download del video: {e}")
 
-    def stream_video(self, video):
-        """Scarica e avvia lo streaming del video con ffmpeg."""
-        file_path = "./temp_video.mp4"
+    # def stream_video(self, video):
+    #     """Scarica e avvia lo streaming del video con ffmpeg."""
+    #     file_path = "./temp_video.mp4"
 
-        def download_and_stream():
-            loop = asyncio.new_event_loop()  # Creiamo un nuovo event loop
-            asyncio.set_event_loop(loop)
-            try:
-                loop.run_until_complete(self.client.download_media(video, file=file_path))
-                print(f"Video scaricato per lo streaming: {file_path}")
-            finally:
-                loop.close()  # Chiudiamo l'event loop dopo l'esecuzione
+    #     def download_and_stream():
+    #         loop = asyncio.new_event_loop()  # Creiamo un nuovo event loop
+    #         asyncio.set_event_loop(loop)
+    #         try:
+    #             loop.run_until_complete(self.client.download_media(video, file=file_path))
+    #             print(f"Video scaricato per lo streaming: {file_path}")
+    #         finally:
+    #             loop.close()  # Chiudiamo l'event loop dopo l'esecuzione
 
-            # Usa ffmpeg per lo streaming progressivo
-            command = [
-                "ffmpeg", "-re", "-i", file_path, "-c", "copy", "-f", "mp4", "pipe:1"
-            ]
-            subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    #         # Usa ffmpeg per lo streaming progressivo
+    #         command = [
+    #             "ffmpeg", "-re", "-i", file_path, "-c", "copy", "-f", "mp4", "pipe:1"
+    #         ]
+    #         subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-        # Avvia il download in un thread separato
-        threading.Thread(target=download_and_stream, daemon=True).start()
+    #     # Avvia il download in un thread separato
+    #     threading.Thread(target=download_and_stream, daemon=True).start()
 
 
     def play_video(self, video):
