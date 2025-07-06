@@ -2,3 +2,5 @@ tele_env
 mycredentials.json
 mycredentials1.json
 *.session
+*.MOV
+*.mp4
