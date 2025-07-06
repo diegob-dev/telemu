@@ -29,7 +29,67 @@ API_HASH = credentials['api_hash']
 PHONE_NUMBER = credentials['phone_number']
 SESSION_NAME = credentials['session_name']
 
-class LoginScreen(Screen):
+class NavigableScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Window.bind(on_key_down=self.on_key_down)
+        self.focus_index = 0
+        self.buttons = []
+
+    def on_key_down(self, instance, key, *args):
+        if not self.buttons:
+            return  
+        # print(self.manager._get_screen_names())
+        num_cols = 4  # Cambia in base al numero di colonne della tua griglia
+        num_rows = (len(self.buttons) + num_cols - 1) // num_cols  # Calcola le righe
+
+        row = self.focus_index // num_cols
+        col = self.focus_index % num_cols
+
+        try: 
+            if key == 275:  # Freccia destra
+                col = (col + 1) % num_cols
+            elif key == 276:  # Freccia sinistra
+                col = (col - 1) % num_cols
+            elif key == 273:  # Freccia su
+                row = (row - 1) % num_rows
+            elif key == 274:  # Freccia giù
+                row = (row + 1) % num_rows
+            elif key == 13:  # Invio
+                self.buttons[self.focus_index].trigger_action(duration=0)
+                self.reset_focus()
+
+            elif key == 8:  # Backspace -> Torna indietro
+                if self.manager.current == "video_list":
+                    # self.manager.add_widget(self.manager.get_screen("chat_list"))
+                    self.manager.current= "chat_list"
+
+                
+
+            # Aggiorna l'indice basato su riga e colonna
+            self.focus_index = min(row * num_cols + col, len(self.buttons) - 1)
+
+        except Exception as e: 
+            print(f"Errore nella gestione dei tasti: {e}")
+
+        self.update_focus()
+
+
+    def update_focus(self):
+        """Aggiorna la visualizzazione del focus sui pulsanti attuali."""
+        for i, btn in enumerate(self.buttons):
+            if isinstance(btn, Button):  # ✅ Solo se è un pulsante
+                btn.background_color = (1, 1, 1, 1) if i == self.focus_index else (0.5, 0.5, 0.5, 1)
+
+
+    def reset_focus(self):
+        if self.buttons:
+            self.focus_index = 0
+            self.update_focus()
+
+
+
+class LoginScreen(NavigableScreen):
     def __init__(self, client, **kwargs):
         super().__init__(**kwargs)
         self.client = client  # Usiamo il client condiviso
@@ -53,6 +113,9 @@ class LoginScreen(Screen):
         layout.add_widget(send_button)
 
         self.add_widget(layout)
+
+        # self.buttons = self.keyboard.children[::-1] + [self.send_button]
+        self.reset_focus()
 
         self.start_client()
 
@@ -97,7 +160,7 @@ class LoginScreen(Screen):
         except Exception as e:
             print(f"Errore: {e}")
 
-class SuccessScreen(Screen):
+class SuccessScreen(NavigableScreen):
     def __init__(self, message="Login effettuato correttamente!", **kwargs):
         super().__init__(**kwargs)
         layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
@@ -106,7 +169,7 @@ class SuccessScreen(Screen):
 
         from kivy.uix.screenmanager import ScreenManager, Screen
 
-class VideoListScreen(Screen):
+class VideoListScreen(NavigableScreen):
     def __init__(self, client, chat, screen_manager, **kwargs):
         super().__init__(**kwargs)
         self.client = client
@@ -114,10 +177,10 @@ class VideoListScreen(Screen):
         self.screen_manager = screen_manager
         self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
 
-        back_button = Button(text="⬅ Back to chats", size_hint_y=None, height=50)
-        back_button.bind(on_press=self.go_back)
+        self.back_button = Button(text="⬅ Back to chats", size_hint_y=None, height=50)
+        self.back_button.bind(on_press=self.go_back)
 
-        self.layout.add_widget(back_button)
+        self.layout.add_widget(self.back_button)
 
         self.video_list = GridLayout(cols=4, spacing=5, size_hint_y=None)
         self.video_list.bind(minimum_height=self.video_list.setter('height'))
@@ -128,13 +191,17 @@ class VideoListScreen(Screen):
         self.layout.add_widget(scroll_view)
         self.add_widget(self.layout)
 
+        self.buttons.append(self.back_button)  # ✅ Aggiungiamo il pulsante alla lista navigabile
         self.load_videos()
+
 
     def go_back(self, instance):
         """Torna alla schermata dell'elenco delle chat."""
         self.screen_manager.current = "chat_list"
 
+
     def load_videos(self):
+        self.buttons.clear() 
         # Pulisce la lista prima di caricare nuovi video
         self.video_list.clear_widgets()  
 
@@ -168,52 +235,14 @@ class VideoListScreen(Screen):
                         )
                         video_button.bind(size=lambda btn, size: setattr(btn, "text_size", (size[0] - 20, None)))
                         video_button.bind(on_press=lambda instance, v=video, vn=video_name: self.show_video_options(v, vn))
-
+                        self.buttons.append(video_button)
                         self.video_list.add_widget(video_button)
+                    self.reset_focus()  
                 except Exception as e:
                     print(f"Errore {e}")
 
         except Exception as e:
             print(f"Errore nel caricamento dei media: {e}")
-
-    # def load_videos(self):
-    #     try:
-    #         videos1 = self.client.get_messages(self.chat, None, filter=InputMessagesFilterDocument)
-    #         videos2 = self.client.get_messages(self.chat, None, filter=InputMessagesFilterVideo)
-    #         videos = videos1 + videos2
-
-    #         video_extensions = {"mp4", "mkv", "avi", "mov", "flv", "webm", "mpeg"}
-    #         i = 0
-
-    #         cleaned_videos = [video for video in videos if video.file and video.file.mime_type]
-
-    #         for video in cleaned_videos:
-    #             try:
-    #                 ext = video.file.mime_type.split("/")[1] if video.file.mime_type else "novideo"
-
-    #                 if ext in video_extensions:
-    #                     video_name = video.file.name if video.file.name else f"{i}.{ext}"
-    #                     i += 1
-
-    #                     video_button = Button(
-    #                     text=video_name,
-    #                     size_hint_y=None,
-    #                     height=100,
-    #                     text_size=(None, None),
-    #                     halign="center",
-    #                     valign="middle",
-    #                     shorten=False,
-    #                     markup=True
-    #                     )
-    #                     video_button.bind(size=lambda btn, size: setattr(btn, "text_size", (size[0] - 20, None)))
-    #                     video_button.bind(on_press=lambda instance, v=video, vn=video_name: self.show_video_options(v, vn))
-
-    #                     self.video_list.add_widget(video_button)
-    #             except Exception as e:
-    #                 print(f"Errore {e}")
-
-    #     except Exception as e:
-    #         print(f"Errore nel caricamento dei media: {e}")
 
     def show_video_options(self, video, videoname):
         """Mostra le opzioni per il video selezionato."""
@@ -225,16 +254,16 @@ class VideoListScreen(Screen):
 
         btn_play = Button(text="Play Video", size_hint_y=None, height=40)
         btn_play.bind(on_press=lambda instance: self.play_video(video))
-        
-        # btn_play1 = Button(text="Stream", size_hint_y=None, height=40)
-        # btn_play1.bind(on_press=lambda instance: self.stream_video(video))
 
         popup_layout.add_widget(btn_download)
         popup_layout.add_widget(btn_play)
-        # popup_layout.add_widget(btn_play1)
 
-        popup = Popup(title="Opzioni video", content=popup_layout, size_hint=(0.6, 0.4))
-        popup.open()
+        self.buttons = [btn_download, btn_play]  # ✅ Aggiungiamo i pulsanti alla navigazione
+        self.focus_index = 0  # ✅ Inizializziamo il focus sul primo bottone
+        self.update_focus()  # ✅ Aggiorniamo la visualizzazione del focus
+
+        self.popup = Popup(title="Opzioni video", content=popup_layout, size_hint=(0.6, 0.4))
+        self.popup.open()
 
     def download_video(self, video, videoname=""):
         """Scarica il video selezionato."""
@@ -244,29 +273,6 @@ class VideoListScreen(Screen):
             print(f"Video scaricato con successo: {save_path}")
         except Exception as e:
             print(f"Errore durante il download del video: {e}")
-
-    # def stream_video(self, video):
-    #     """Scarica e avvia lo streaming del video con ffmpeg."""
-    #     file_path = "./temp_video.mp4"
-
-    #     def download_and_stream():
-    #         loop = asyncio.new_event_loop()  # Creiamo un nuovo event loop
-    #         asyncio.set_event_loop(loop)
-    #         try:
-    #             loop.run_until_complete(self.client.download_media(video, file=file_path))
-    #             print(f"Video scaricato per lo streaming: {file_path}")
-    #         finally:
-    #             loop.close()  # Chiudiamo l'event loop dopo l'esecuzione
-
-    #         # Usa ffmpeg per lo streaming progressivo
-    #         command = [
-    #             "ffmpeg", "-re", "-i", file_path, "-c", "copy", "-f", "mp4", "pipe:1"
-    #         ]
-    #         subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-    #     # Avvia il download in un thread separato
-    #     threading.Thread(target=download_and_stream, daemon=True).start()
-
 
     def play_video(self, video):
         """Riproduce il video selezionato."""
@@ -278,7 +284,7 @@ class VideoListScreen(Screen):
         except Exception as e:
             print(f"Errore durante la riproduzione del video: {e}")
 
-class ChatListScreen(Screen):
+class ChatListScreen(NavigableScreen):
     def __init__(self, client, screen_manager, **kwargs):
         super().__init__(**kwargs)
         self.client = client
@@ -296,6 +302,7 @@ class ChatListScreen(Screen):
         self.add_widget(layout)
 
     def load_chats(self):
+        self.buttons.clear()
         try:
             chats = self.client.get_dialogs()
             for chat in chats:
@@ -312,6 +319,9 @@ class ChatListScreen(Screen):
                 chat_button.bind(size=lambda btn, size: setattr(btn, "text_size", (size[0] - 20, None)))
                 chat_button.bind(on_press=lambda instance, c=chat: self.open_video_list(c))
                 self.chat_list_layout.add_widget(chat_button)
+                self.buttons.append(chat_button)
+            self.reset_focus()
+                
         except Exception as e:
             print(f"Errore durante il caricamento delle chat: {e}")
 
@@ -324,10 +334,12 @@ class ChatListScreen(Screen):
             video_screen.chat = chat  # Aggiorna la chat corrente
             video_screen.load_videos()  # Ricarica i video per la nuova chat
         else:
+            
             video_screen = VideoListScreen(self.client, chat, self.screen_manager, name="video_list")
             self.screen_manager.add_widget(video_screen)
 
         self.screen_manager.current = "video_list"
+        video_screen.reset_focus()
 
 class VideoListView(RecycleView):
     """Lista di video in formato RecycleView"""
