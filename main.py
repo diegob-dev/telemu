@@ -10,11 +10,13 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.popup import Popup
+from kivy.clock import Clock
 from kivy.uix.recycleview import RecycleView
+from kivy.uix.progressbar import ProgressBar
 import os
 import subprocess
 import requests
-
+import threading
 BASE_URL = "https://18097064373b.ngrok-free.app"
 
 class NavigableScreen(Screen):
@@ -65,7 +67,7 @@ class NavigableScreen(Screen):
             self.update_focus()
 
 class VideoListScreen(NavigableScreen):
-    def __init__(self, chat, screen_manager, endpoint = BASE_URL, **kwargs):
+    def __init__(self, chat, screen_manager, endpoint=BASE_URL, **kwargs):
         super().__init__(**kwargs)
         self.chat = chat
         self.screen_manager = screen_manager
@@ -73,16 +75,16 @@ class VideoListScreen(NavigableScreen):
 
         self.back_button = Button(text="⬅ Back to chats", size_hint_y=None, height=50)
         self.back_button.bind(on_press=self.go_back)
-
         self.layout.add_widget(self.back_button)
 
         self.video_list = GridLayout(cols=4, spacing=5, size_hint_y=None)
         self.video_list.bind(minimum_height=self.video_list.setter('height'))
         self.video_api = endpoint + "/download"
+
         scroll_view = ScrollView()
         scroll_view.add_widget(self.video_list)
-
         self.layout.add_widget(scroll_view)
+
         self.add_widget(self.layout)
 
         self.buttons.append(self.back_button)
@@ -100,14 +102,16 @@ class VideoListScreen(NavigableScreen):
             response = requests.get(f"{BASE_URL}/messages/{chat_id}")
             response.raise_for_status()
             videos = response.json()
+            self.video_chat_list = {}
 
             for i, video in enumerate(videos):
-                if video["file_name"] is not None:
-                    video_ext = video["file_name"].split(".")[-1] 
+                if video["file_name"]:
+                    video_ext = video["file_name"].split(".")[-1]
                     if video_ext in video_exts:
                         url = self.video_api + f"/{video['id']}"
-                        print(url)
                         video_name = video.get("file_name", f"video_{i}.mp4")
+                        self.video_chat_list[video['id']] = video_name
+
                         video_button = Button(
                             text=video_name,
                             size_hint_y=None,
@@ -119,27 +123,38 @@ class VideoListScreen(NavigableScreen):
                             markup=True
                         )
                         video_button.bind(size=lambda btn, size: setattr(btn, "text_size", (size[0] - 20, None)))
-                        video_button.bind(on_press=lambda instance, v=video: self.show_video_options(video_label =video_name, 
-                                                                                                     video_ext=video_ext,
-                                                                                                       download_link=url))
+                        video_button.bind(
+                            on_press=lambda instance, video_name=video_name, video_ext=video_ext, url=url:
+                                self.show_video_options(
+                                    video_label=video_name,
+                                    video_ext=video_ext,
+                                    download_link=url
+                                )
+                        )
                         self.buttons.append(video_button)
                         self.video_list.add_widget(video_button)
             self.reset_focus()
         except Exception as e:
             print(f"Errore nel caricamento dei video: {e}")
 
-    def show_video_options(self, video_label= "video", video_ext='mp4', download_link=None):
-        
+    def show_video_options(self, video_label="video", video_ext='mp4', download_link=None):
         videoname = f"temp.{video_ext}"
 
         popup_layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
-        popup_layout.add_widget(Label(text=f"{video_label}", font_size='18sp'))
+        popup_layout.add_widget(Label(text=video_label, font_size='18sp'))
+
+        # Progress label e ProgressBar grafica
+        self.progress_label = Label(text="In attesa di scaricare...", font_size='14sp')
+        popup_layout.add_widget(self.progress_label)
+
+        self.progress_bar = ProgressBar(max=100, value=0, size_hint_y=None, height=20)
+        popup_layout.add_widget(self.progress_bar)
 
         btn_download = Button(text="Download", size_hint_y=None, height=40)
         btn_download.bind(on_press=lambda instance: self.download_video(download_link, filename=videoname))
 
         btn_play = Button(text="Play Video", size_hint_y=None, height=40)
-        btn_play.bind(on_press=lambda instance: self.play_video(download_link))
+        btn_play.bind(on_press=lambda instance: self.play_video(download_link, filename=videoname))
 
         popup_layout.add_widget(btn_download)
         popup_layout.add_widget(btn_play)
@@ -151,12 +166,10 @@ class VideoListScreen(NavigableScreen):
         self.popup = Popup(title="Opzioni video", content=popup_layout, size_hint=(0.6, 0.4))
         self.popup.open()
 
-    def download_video(self, endpoint_url, filename='tempfile.mp4'):
+    def download_video(self, endpoint_url, filename='temp.mp4'):
         try:
-            # print(endpoint_url)
             response = requests.get(endpoint_url, stream=True)
-            response.raise_for_status()  # Solleva eccezione per errori HTTP
-
+            response.raise_for_status()
             with open(filename, "wb") as f:
                 for chunk in response.iter_content(chunk_size=8192):
                     if chunk:
@@ -165,28 +178,50 @@ class VideoListScreen(NavigableScreen):
             print(f"[✓] Video scaricato: {filename}")
         except requests.exceptions.RequestException as e:
             print(f"[!] Errore nel download: {e}")
+
+    def play_video(self, endpoint_url, filename='temp.mp4'):
+        def download_thread():
+            try:
+                response = requests.get(endpoint_url, stream=True)
+                response.raise_for_status()
+
+                total_length = response.headers.get('content-length')
+                if total_length is None:
+                    total_length_int = 0
+                    Clock.schedule_once(lambda dt: setattr(self.progress_label, 'text', "Dimensione sconosciuta, scaricamento in corso..."))
+                else:
+                    total_length_int = int(total_length)
+
+                downloaded = 0
+
+                with open(filename, "wb") as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                            downloaded += len(chunk)
+                            if total_length_int:
+                                percent = int(downloaded * 100 / total_length_int)
+                                Clock.schedule_once(lambda dt, p=percent: self.update_progress(p))
+                            else:
+                                Clock.schedule_once(lambda dt, d=downloaded: setattr(self.progress_label, 'text', f"Scaricamento... {d} byte"))
+
+                Clock.schedule_once(lambda dt: self.on_download_complete(filename))
+
+            except requests.exceptions.RequestException as e:
+                Clock.schedule_once(lambda dt: setattr(self.progress_label, 'text', "[!] Errore nel download"))
+                print(f"[!] Errore nella riproduzione: {e}")
+
+        threading.Thread(target=download_thread, daemon=True).start()
+
+    def update_progress(self, percent):
+        self.progress_bar.value = percent
+        self.progress_label.text = f"Scaricamento... {percent}%"
+
+    def on_download_complete(self, filename):
+        self.popup.dismiss()
+        subprocess.Popen(["xdg-open", filename])
+        print(f"[✓] Riproduzione avviata: {filename}")
         
-
-    def play_video(self, endpoint_url, filename='tempfile.mp4'):
-        try:
-            # print(endpoint_url)
-            response = requests.get(endpoint_url, stream=True)
-            response.raise_for_status()
-
-            video_path = "./{filename}"
-            with open(video_path, "wb") as f:
-                j = 1
-                for chunk in response.iter_content(chunk_size=8192):
-                    print(j)
-                    j+=1
-                    if chunk:
-                        f.write(chunk)
-            self.popup.dismiss()
-            subprocess.Popen(["xdg-open", video_path])  # Su Windows: ["start", video_path]; macOS: ["open", video_path]
-            print(f"[✓] Riproduzione avviata: {video_path}")
-        except requests.exceptions.RequestException as e:
-            print(f"[!] Errore nella riproduzione: {e}")
-
 class ChatListScreen(NavigableScreen):
     def __init__(self, client, screen_manager, **kwargs):
         super().__init__(**kwargs)
