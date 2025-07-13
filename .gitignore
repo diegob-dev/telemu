@@ -1,6 +1,8 @@
-tele_env
+telenv
 mycredentials.json
 mycredentials1.json
 *.session
 *.MOV
 *.mp4
+.buildozer*
+bin/*
