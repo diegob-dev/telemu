@@ -1,0 +1,241 @@
+07-13 22:58:47.399   823   869 I ActivityManager: Force stopping org.mu.app.telemu appid=10090 user=-1: installPackageLI
+07-13 22:58:47.403   823   908 I PackageManager: Update package org.mu.app.telemu code path from /data/app/~~AkXS6zGZh6DXr6dFPhX-WQ==/org.mu.app.telemu-UrgoodxTwRlB6JLVawtr4w== to /data/app/~~IaBvXdm15ddgsGAbK_ildA==/org.mu.app.telemu--Vfxw02MRiflwaXHzUma2Q==; Retain data and using new
+07-13 22:58:47.403   823   908 I PackageManager: Update package org.mu.app.telemu resource path from /data/app/~~AkXS6zGZh6DXr6dFPhX-WQ==/org.mu.app.telemu-UrgoodxTwRlB6JLVawtr4w== to /data/app/~~IaBvXdm15ddgsGAbK_ildA==/org.mu.app.telemu--Vfxw02MRiflwaXHzUma2Q==; Retain data and using new
+07-13 22:58:47.581   823   908 E ArtManagerService: Failed to prepare profile for org.mu.app.telemu:/data/app/~~IaBvXdm15ddgsGAbK_ildA==/org.mu.app.telemu--Vfxw02MRiflwaXHzUma2Q==/base.apk
+07-13 22:58:47.614   823   908 I ActivityManager: Force stopping org.mu.app.telemu appid=10090 user=10: pkg removed
+07-13 22:58:47.632   823   908 I ActivityManager: Force stopping org.mu.app.telemu appid=10090 user=0: pkg removed
+07-13 22:58:47.683   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+07-13 22:58:47.687   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.impl.PackageMonitorReceiverImpl$RegisteredReceiver
+07-13 22:58:47.688   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.backgroundimpl.BackgroundPackageMonitorReceiverImpl$RegisteredReceiver
+07-13 22:58:47.688   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.instantapps.appmanagement.InstantAppRemoveMonitor
+07-13 22:58:47.688   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+07-13 22:58:47.688   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.games.chimera.GamesSystemBroadcastReceiverProxy
+07-13 22:58:47.688   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.tcl.MultiScreenInteraction_TV/com.tcl.multiscreeninteractiontv.broadcast.PackageReceiver
+07-13 22:58:47.689   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.tcl.initsetup/.receiver.PartnerReceiver
+07-13 22:58:47.689   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.tcl.ttvs/.versionUpdateApp.core.receiver.SystemUpdateReceiver
+07-13 22:58:47.834   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.packageinstaller/com.android.packageinstaller.PackageInstalledReceiver
+07-13 22:58:47.835   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.impl.PackageMonitorReceiverImpl$RegisteredReceiver
+07-13 22:58:47.875   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.backgroundimpl.BackgroundPackageMonitorReceiverImpl$RegisteredReceiver
+07-13 22:58:47.885   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.apps.tv.launcherx/.stream.refreshtrigger.appinstall.AppInstallReceiver_Receiver
+07-13 22:58:47.885   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+07-13 22:58:47.886   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.games.chimera.GamesSystemBroadcastReceiverProxy
+07-13 22:58:47.886   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.gass.chimera.PackageChangeBroadcastReceiver
+07-13 22:58:47.886   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.tcl.MultiScreenInteraction_TV/com.tcl.multiscreeninteractiontv.broadcast.PackageReceiver
+07-13 22:58:47.886   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.tcl.initsetup/.receiver.PartnerReceiver
+07-13 22:58:47.886   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.tcl.ttvs/.versionUpdateApp.core.receiver.SystemUpdateReceiver
+07-13 22:58:47.887   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.tcl.tv/.receiver.PackageReceiver
+07-13 22:58:47.888   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+07-13 22:58:49.442   823  1950 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REPLACED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+07-13 22:58:49.445   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REPLACED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.gass.chimera.PackageChangeBroadcastReceiver
+07-13 22:58:49.445   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REPLACED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.tcl.MultiScreenInteraction_TV/com.tcl.multiscreeninteractiontv.broadcast.PackageReceiver
+07-13 22:58:49.446   823   875 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REPLACED dat=package:org.mu.app.telemu flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+07-13 22:59:42.652   823  1310 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=org.mu.app.telemu cmp=org.mu.app.telemu/org.kivy.android.PythonActivity} from uid 1000
+07-13 22:59:42.723   823  1957 D ResourceManagerService: onResumeTopActivity org.mu.app.telemu, Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=org.mu.app.telemu cmp=org.mu.app.telemu/org.kivy.android.PythonActivity }, ComponentInfo{org.mu.app.telemu/org.kivy.android.PythonActivity}
+07-13 22:59:42.723   823  1957 I ActivityTaskManager: gc_tuning enable system_server's gc tuning when start activity org.mu.app.telemu
+07-13 22:59:42.724   823   870 I ActivityManager: Start proc 2760:org.mu.app.telemu/u0a90 for pre-top-activity {org.mu.app.telemu/org.kivy.android.PythonActivity}
+07-13 22:59:42.725   823  1957 I ActivityTaskManager: gc_tuning enable system_server's gc tuning when start activity org.mu.app.telemu
+07-13 22:59:42.953   823  1022 I AppRecordTransition: AppRecordTransition add cold start flag for : org.mu.app.telemu
+07-13 22:59:43.241  2760  2760 I ActivityTaskManager: isPreloadSplashApp = org.mu.app.telemu
+07-13 22:59:43.269   823  1310 D BMS-BlockMonitorManagerService: attach caller is org.mu.app.telemu ,pid is 2760
+07-13 22:59:43.736   823   864 I ActivityTaskManager: gc_tuning disable system_server's gc tuning after org.mu.app.telemu shown
+07-13 22:59:43.740   823  1310 W ActivityTaskManager: ActivityRecord idle....org.mu.app.telemu====name = 101=====msg.obj = org.mu.app.telemu
+07-13 23:00:08.133   823  1092 W TclActivityManagerService: sikp freeze pkg:ProcessRecord{aae1418 3948:com.android.bluetooth/1002} [service] is need by ProcessRecord{771dd26 2760:org.mu.app.telemu/u0a90} or start by system
+07-13 23:00:08.133   823  1092 W TclActivityManagerService: sikp freeze pkg:ProcessRecord{aae1418 3948:com.android.bluetooth/1002} [service] is need by ProcessRecord{771dd26 2760:org.mu.app.telemu/u0a90} or start by system
+07-13 23:00:08.133   823  1092 W TclActivityManagerService: sikp freeze pkg:ProcessRecord{aae1418 3948:com.android.bluetooth/1002} [service] is need by ProcessRecord{771dd26 2760:org.mu.app.telemu/u0a90} or start by system
+07-13 23:00:08.133   823  1092 W TclActivityManagerService: sikp freeze pkg:ProcessRecord{aae1418 3948:com.android.bluetooth/1002} [service] is need by ProcessRecord{771dd26 2760:org.mu.app.telemu/u0a90} or start by system
+07-13 23:01:06.766   823   863 D ResourceManagerService: onStopActivity org.mu.app.telemu, ComponentInfo{org.mu.app.telemu/org.kivy.android.PythonActivity}
+07-13 23:01:26.010   823  1092 D FreezeManager: before doFreeze 2760 pro org.mu.app.telemu
+07-13 23:01:26.011   823  1092 D FreezeManager: doFreeze 2760 pro org.mu.app.telemu res true
+07-13 23:01:45.647   823  2560 I ActivityManager: Force stopping org.mu.app.telemu appid=10090 user=0: from pid 1350
+07-13 23:01:45.647   823  2560 I ActivityManager: Killing 2760:org.mu.app.telemu/u0a90 (adj 700): stop org.mu.app.telemu due to from pid 1350
+07-13 23:01:45.659   823  2560 W ActivityTaskManager: Force removing ActivityRecord{6dbc881 u0 org.mu.app.telemu/org.kivy.android.PythonActivity t803 f}}: app died, no saved state
+07-13 23:01:45.684  1095  1214 I TGuardMemoryManagerPackageRecord: skipped save pss as zero pkg:org.mu.app.telemu
+07-13 23:02:03.228   823  1960 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=org.mu.app.telemu cmp=org.mu.app.telemu/org.kivy.android.PythonActivity} from uid 1000
+07-13 23:02:03.251  1350  1350 D ActivityLifecycleHandler: getTopActivityPackageName packgename=org.mu.app.telemu
+07-13 23:02:03.264  1350  1350 D ActivityLifecycleHandler: isTopGoogleSetting packgename = org.mu.app.telemu
+07-13 23:02:03.273  1350  1350 D MainSettings: isTopGoogleSetting packgename = org.mu.app.telemu
+07-13 23:02:03.277   823  1960 D ResourceManagerService: onResumeTopActivity org.mu.app.telemu, Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=org.mu.app.telemu cmp=org.mu.app.telemu/org.kivy.android.PythonActivity }, ComponentInfo{org.mu.app.telemu/org.kivy.android.PythonActivity}
+07-13 23:02:03.279   823  1960 I ActivityTaskManager: gc_tuning enable system_server's gc tuning when start activity org.mu.app.telemu
+07-13 23:02:03.281   823  1960 I ActivityTaskManager: gc_tuning enable system_server's gc tuning when start activity org.mu.app.telemu
+07-13 23:02:03.299   823   870 I ActivityManager: Start proc 3291:org.mu.app.telemu/u0a90 for pre-top-activity {org.mu.app.telemu/org.kivy.android.PythonActivity}
+07-13 23:02:03.459   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.471  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 75166  predictSize is 75166
+07-13 23:02:03.479   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.500   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.506   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.519   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.539   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.559   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.579   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.598   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.612  3291  3291 I ActivityTaskManager: isPreloadSplashApp = org.mu.app.telemu
+07-13 23:02:03.619   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.638   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=5
+07-13 23:02:03.640   823  1123 D BMS-BlockMonitorManagerService: attach caller is org.mu.app.telemu ,pid is 3291
+07-13 23:02:03.659   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=4
+07-13 23:02:03.680   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=4
+07-13 23:02:03.699   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=4
+07-13 23:02:03.718   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=4
+07-13 23:02:03.738   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=4
+07-13 23:02:03.758   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=4
+07-13 23:02:03.778   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=4
+07-13 23:02:03.791  3291  3331 V pythonutil: Unpacking /data/app/~~IaBvXdm15ddgsGAbK_ildA==/org.mu.app.telemu--Vfxw02MRiflwaXHzUma2Q==/lib/arm/libpybundle app
+07-13 23:02:03.798   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=4
+07-13 23:02:03.818   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=4
+07-13 23:02:03.840   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:03.858   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:03.878   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:03.898   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:03.917   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:03.936   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:04.032   823   863 D WindowManager: handleMessage mcurrentFocus=org.mu.app.telemu
+07-13 23:02:04.036   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:04.053  3291  3341 V SDL     : Running main function SDL_main from library /data/app/~~IaBvXdm15ddgsGAbK_ildA==/org.mu.app.telemu--Vfxw02MRiflwaXHzUma2Q==/lib/arm/libmain.so
+07-13 23:02:04.056   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:04.059  3291  3341 I python  : /data/user/0/org.mu.app.telemu/files/app
+07-13 23:02:04.059  3291  3341 I python  : /data/user/0/org.mu.app.telemu/files/app/_python_bundle/stdlib.zip:/data/user/0/org.mu.app.telemu/files/app/_python_bundle/modules
+07-13 23:02:04.096   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:04.119   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:04.125   823   864 I ActivityTaskManager: gc_tuning disable system_server's gc tuning after org.mu.app.telemu shown
+07-13 23:02:04.126   823   868 D ArtManagerInternalImpl: /data/misc/iorapd/org.mu.app.telemu/10211/org.kivy.android.PythonActivity/compiled_traces/compiled_trace.pb doesn't exist
+07-13 23:02:04.129   823   868 I ActivityTaskManager: Displayed org.mu.app.telemu/org.kivy.android.PythonActivity: +897ms
+07-13 23:02:04.136   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:04.144   823  1947 W ActivityTaskManager: ActivityRecord idle....org.mu.app.telemu====name = 101=====msg.obj = org.mu.app.telemu
+07-13 23:02:04.157   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:04.135  3291  3291 W SDLThread: type=1400 audit(0.0:607): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/zlib.cpython-311.so" dev="dm-11" ino=268222 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:04.176   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=1
+07-13 23:02:04.179  3291  3341 I python  : Android path ['.', '/data/user/0/org.mu.app.telemu/files/app/_python_bundle/stdlib.zip', '/data/user/0/org.mu.app.telemu/files/app/_python_bundle/modules', '/data/user/0/org.mu.app.telemu/files/app/_python_bundle/site-packages']
+07-13 23:02:04.180  3291  3341 I python  : os.environ is environ({'PATH': '/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin:/vendor/xbin', 'ANDROID_BOOTLOGO': '1', 'ANDROID_ROOT': '/system', 'ANDROID_ASSETS': '/system/app', 'ANDROID_DATA': '/data', 'ANDROID_STORAGE': '/storage', 'ANDROID_ART_ROOT': '/apex/com.android.art', 'ANDROID_I18N_ROOT': '/apex/com.android.i18n', 'ANDROID_TZDATA_ROOT': '/apex/com.android.tzdata', 'EXTERNAL_STORAGE': '/sdcard', 'ASEC_MOUNTPOINT': '/mnt/asec', 'BOOTCLASSPATH': '/apex/com.android.art/javalib/core-oj.jar:/apex/com.android.art/javalib/core-libart.jar:/apex/com.android.art/javalib/core-icu4j.jar:/apex/com.android.art/javalib/okhttp.jar:/apex/com.android.art/javalib/bouncycastle.jar:/apex/com.android.art/javalib/apache-xml.jar:/system/framework/framework.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-atb-backward-compatibility.jar:/system/framework/tcl.webkit.jar:/system/framework/tcl.resource.jar:/apex/com.android.conscrypt/javalib/conscrypt.jar:/apex/com.android.media/javalib/updatable-media.jar:/apex/com.android.mediaprovider/javalib/framework-mediaprovider.jar:/apex/com.android.os.statsd/javalib/framework-statsd.jar:/apex/com.android.permission/javalib/framework-permission.jar:/apex/com.android.sdkext/javalib/framework-sdkextensions.jar:/apex/com.android.wifi/javalib/framework-wifi.jar:/apex/com.android.tethering/javalib/framework-tethering.jar:/system/framework/rtk-mediaplayer.jar:/product/framework/com.tcl.tvmanager.jar:/system_ext/framework/com.tcl.deviceinfo.jar:/system_ext/framework/tcl-systemserver.jar:/system_ext/framework/com.tcl.os.system.jar:/system_ext/framework/tcl-framework.jar:/system_ext/framework/com.tcl.gingad.jar', 'DEX2OATBOOTCLASSPATH': '/apex/com.android.art/javalib/core-oj.jar:/apex/com.android.art/javalib/core-libart.jar:/apex/com.android.art/javalib/core-icu4j.jar:/apex/com.android.art/javalib/okhttp.jar:/apex/com.android.art/javalib/bouncycastle.jar:/apex/com.android.art/javalib/apache-xml.jar:/system/framework/framework.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-atb-backward-compatibility.jar:/system/framework/tcl.webkit.jar:/system/framework/tcl.resource.jar', 'SYSTEMSERVERCLASSPATH': '/system/framework/com.android.location.provider.jar:/system/framework/services.jar:/system/framework/ethernet-service.jar:/apex/com.android.permission/javalib/service-permission.jar:/apex/com.android.wifi/javalib/service-wifi.jar:/apex/com.android.ipsec/javalib/android.net.ipsec.ike.jar:/system_ext/framework/tcl-service.jar', 'DOWNLOAD_CACHE': '/data/cache', 'ANDROID_SOCKET_zygote': '17', 'ANDROID_SOCKET_usap_pool_primary': '20', 'ANDROID_ENTRYPOINT': 'main.pyc', 'ANDROID_ARGUMENT': '/data/user/0/org.mu.app.telemu/files/app', 'ANDROID_APP_PATH': '/data/user/0/org.mu.app.telemu/files/app', 'ANDROID_PRIVATE': '/data/user/0/org.mu.app.telemu/files', 'ANDROID_UNPACK': '/data/user/0/org.mu.app.telemu/files/app', 'PYTHONHOME': '/data/user/0/org.mu.app.telemu/files/app', 'PYTHONPATH': '/data/user/0/org.mu.app.telemu/files/app:/data/user/0/org.mu.app.telemu/files/app/lib', 'PYTHONOPTIMIZE': '2', 'P4A_BOOTSTRAP': 'SDL2', 'PYTHON_NAME': 'python', 'P4A_IS_WINDOWED': 'True', 'KIVY_ORIENTATION': 'LandscapeLeft', 'P4A_NUMERIC_VERSION': 'None', 'P4A_MINSDK': '21', 'LC_CTYPE': 'C.UTF-8'})
+07-13 23:02:04.199   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.199   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=3
+07-13 23:02:04.219   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.219   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=3
+07-13 23:02:04.233  1759  1857 W TifLauncherHelper: Allow remove LastInput? org.mu.app.telemu in foreground
+07-13 23:02:04.238   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.238   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=3
+07-13 23:02:04.258   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.258   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=3
+07-13 23:02:04.278   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.278   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=3
+07-13 23:02:04.298   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.298   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=3
+07-13 23:02:04.318   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.318   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = Splash Screen org.mu.app.telemu#0 num_of_layers=3
+07-13 23:02:04.340   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.357   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.311  3291  3291 W SDLThread: type=1400 audit(0.0:608): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/_json.cpython-311.so" dev="dm-11" ino=268174 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:04.378   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.396   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.416   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:04.451  3291  3291 W SDLThread: type=1400 audit(0.0:609): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/_typing.cpython-311.so" dev="dm-11" ino=268202 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:04.547  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 75166  predictSize is 75166
+07-13 23:02:04.583  3291  3291 W SDLThread: type=1400 audit(0.0:610): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/math.cpython-311.so" dev="dm-11" ino=268211 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:04.599  3291  3291 W SDLThread: type=1400 audit(0.0:611): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/_heapq.cpython-311.so" dev="dm-11" ino=268173 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:04.599  3291  3291 W SDLThread: type=1400 audit(0.0:612): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/_queue.cpython-311.so" dev="dm-11" ino=268182 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:04.744  3291  3341 I python  : [INFO   ] [Logger      ] Record log in /data/user/0/org.mu.app.telemu/files/app/.kivy/logs/kivy_25-07-13_1.txt
+07-13 23:02:04.746  3291  3341 I python  : [INFO   ] [Kivy        ] Installed at "/data/user/0/org.mu.app.telemu/files/app/_python_bundle/site-packages/kivy/__init__.pyc"
+07-13 23:02:04.863  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:02:04.995  2224  3970 E TTVS_LOG: BI_Se-newPackageName=org.mu.app.telemu  oldPackageName=com.android.tv.settings
+07-13 23:02:07.815  3291  3291 W SDLThread: type=1400 audit(0.0:625): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/_socket.cpython-311.so" dev="dm-11" ino=268188 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:07.831  3291  3291 W SDLThread: type=1400 audit(0.0:626): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/array.cpython-311.so" dev="dm-11" ino=268206 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:07.843  3291  3291 W SDLThread: type=1400 audit(0.0:627): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/_ssl.cpython-311.so" dev="dm-11" ino=268190 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:07.867  3291  3291 W SDLThread: type=1400 audit(0.0:628): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/binascii.cpython-311.so" dev="dm-11" ino=268208 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:07.883  3291  3291 W SDLThread: type=1400 audit(0.0:629): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/_contextvars.cpython-311.so" dev="dm-11" ino=268165 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:08.130  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 75166  predictSize is 75166
+07-13 23:02:08.939  3291  3291 W SDLThread: type=1400 audit(0.0:655): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/modules/_decimal.cpython-311.so" dev="dm-11" ino=268170 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:08.971  3291  3291 W SDLThread: type=1400 audit(0.0:656): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/site-packages/kivy/core/window/_window_sdl2.so" dev="dm-11" ino=32492 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:09.023  3291  3291 W SDLThread: type=1400 audit(0.0:657): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/site-packages/kivy/graphics/cgl_backend/cgl_glew.so" dev="dm-11" ino=162419 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:09.027  3291  3291 W SDLThread: type=1400 audit(0.0:658): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/site-packages/kivy/graphics/cgl_backend/cgl_gl.so" dev="dm-11" ino=162418 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:09.031  3291  3291 W SDLThread: type=1400 audit(0.0:659): avc: granted { execute } for path="/data/data/org.mu.app.telemu/files/app/_python_bundle/site-packages/kivy/graphics/cgl_backend/cgl_sdl2.so" dev="dm-11" ino=162421 scontext=u:r:untrusted_app:s0:c90,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c90,c256,c512,c768 tclass=file app=org.mu.app.telemu
+07-13 23:02:09.071   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:09.097   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:09.117   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=2
+07-13 23:02:09.210  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 75166  predictSize is 75166
+07-13 23:02:10.295   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.298   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.317   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.803   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.816   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.837   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.857   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.877   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.897   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.916   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.936   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.957   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.976   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:10.997   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.016   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.036   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.056   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.077   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.097   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.116   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.136   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.156   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.177   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.197   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.217   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.237   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.256   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.277   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.296   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.317   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.337   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.356   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:11.594  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 75166  predictSize is 75166
+07-13 23:02:11.946  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:02:13.942  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 75166  predictSize is 75166
+07-13 23:02:13.985  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:02:22.178  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 76255  predictSize is 154341
+07-13 23:02:22.538  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:02:23.810  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 76255  predictSize is 154341
+07-13 23:02:26.998   382   463 E RHWC2   : fox1 [rtk_gdma_post 1530 ]name_of_layer = SurfaceView - org.mu.app.telemu/org.kivy.android.PythonActivity#0 num_of_layers=1
+07-13 23:02:30.602  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81328  predictSize is 81328
+07-13 23:02:30.673  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:02:41.603  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81328  predictSize is 81328
+07-13 23:02:41.692  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:03:05.502  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81328  predictSize is 81328
+07-13 23:03:05.712  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:03:06.810  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81328  predictSize is 81328
+07-13 23:03:06.996  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:03:07.898  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81328  predictSize is 81328
+07-13 23:03:09.106  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81328  predictSize is 81328
+07-13 23:03:09.133  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:03:11.606  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81328  predictSize is 81328
+07-13 23:03:11.633  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:03:25.070  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81328  predictSize is 81328
+07-13 23:03:41.616  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:03:41.876  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:04:09.490  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:04:09.617  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:04:10.578  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:04:10.608  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:04:11.616  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:04:11.644  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:04:15.978  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:04:16.032  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:04:17.390  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:04:17.419  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:04:20.442  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:04:20.524  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:04:21.966  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:04:21.993  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:04:23.046  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:04:23.073  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:04:41.634  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81198  predictSize is 81198
+07-13 23:04:41.661  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:05:11.664  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81025  predictSize is 81025
+07-13 23:05:11.831  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:05:18.151  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81025  predictSize is 81025
+07-13 23:05:41.687  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81025  predictSize is 81025
+07-13 23:05:41.805  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:05:53.126  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81025  predictSize is 81025
+07-13 23:05:53.156  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:06:11.705  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81025  predictSize is 81025
+07-13 23:06:11.733  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:06:30.826  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81025  predictSize is 81025
+07-13 23:06:30.971  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:06:41.715  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81025  predictSize is 81025
+07-13 23:06:41.757  1095  1410 I TGuardMemoryManagerTrimHandler: skipped reclaim top package:org.mu.app.telemu
+07-13 23:07:11.744  1095  1420 I TGuardMemoryManagerMemoryInfoManager: org.mu.app.telemu avgPss is 81025
