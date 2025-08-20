@@ -2,9 +2,9 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ main, master, 07-external-telegram-be ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main, master, 07-external-telegram-be ]
+    branches: [ main, master ]
   workflow_dispatch:  # Permette build manuale
 
 jobs:
@@ -23,14 +23,16 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y \\
-          git zip unzip openjdk-17-jdk autoconf libtool pkg-config \\
-          zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 \\
+        sudo apt-get install -y \
+          git zip unzip openjdk-17-jdk autoconf libtool pkg-config \
+          zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 \
           cmake libffi-dev libssl-dev
 
     - name: Set up environment variables
       run: |
         echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
+        echo "ANDROID_API_LEVEL=33" >> $GITHUB_ENV
+        echo "ANDROID_BUILD_TOOLS_VERSION=33.0.0" >> $GITHUB_ENV
 
     - name: Install buildozer and dependencies
       run: |
@@ -43,9 +45,9 @@ jobs:
 
     - name: Create release keystore
       run: |
-        keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias \\
-          -keyalg RSA -keysize 2048 -validity 10000 \\
-          -storepass bibo46 -keypass bibo46 \\
+        keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias \
+          -keyalg RSA -keysize 2048 -validity 10000 \
+          -storepass bibo46 -keypass bibo46 \
           -dname "CN=TelemuTV,OU=App,O=DiegoB,L=Turin,S=Piedmont,C=IT"
 
     - name: Build APK with buildozer
@@ -64,3 +66,13 @@ jobs:
         name: telemu-tv-apk
         path: bin/*.apk
         retention-days: 30
+
+    - name: Upload build logs on failure
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: build-logs
+        path: |
+          .buildozer/
+          buildozer.spec
+        retention-days: 7
