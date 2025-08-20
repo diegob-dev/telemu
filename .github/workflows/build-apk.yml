@@ -76,3 +76,4 @@ jobs:
           .buildozer/
           buildozer.spec
         retention-days: 7
+        
