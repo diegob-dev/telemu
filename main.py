@@ -1,4 +1,5 @@
 import json
+import platform
 from kivy.uix.image import Image
 from kivy.core.window import Window
 from kivy.app import App
@@ -18,6 +19,10 @@ import os
 import subprocess
 import requests
 import threading
+
+# CONFIGURAZIONE AMBIENTE
+# Imposta True per sviluppo su PC, False per produzione su TV
+DEVELOPMENT_MODE = True
 
 BASE_URL = 'https://tele-tv-be.onrender.com'
 
@@ -141,30 +146,24 @@ class VideoListScreen(NavigableScreen):
     def show_video_options(self, video_label="video", video_ext='mp4', download_link=None):
         videoname = f"temp.{video_ext}"
         self.app_dir = App.get_running_app().user_data_dir
+        
         popup_layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
         popup_layout.add_widget(Label(text=video_label, font_size='18sp'))
 
-        self.progress_label = Label(text="In attesa di scaricare...", font_size='14sp')
+        self.progress_label = Label(text="Avvio scaricamento...", font_size='14sp')
         popup_layout.add_widget(self.progress_label)
 
         self.progress_bar = ProgressBar(max=100, value=0, size_hint_y=None, height=20)
         popup_layout.add_widget(self.progress_bar)
 
-        # btn_download = Button(text="Download", size_hint_y=None, height=40)
-        # btn_download.bind(on_press=lambda instance: self.download_video(download_link, filename=videoname))
+        # Nessun pulsante - il download parte automaticamente
+        self.buttons = []  # Lista vuota, nessun pulsante da navigare
 
-        btn_play = Button(text="Play Video", size_hint_y=None, height=40)
-        btn_play.bind(on_press=lambda instance: self.play_video(download_link, filename=videoname))
-
-        # popup_layout.add_widget(btn_download)
-        popup_layout.add_widget(btn_play)
-
-        self.buttons = [btn_play]
-        self.focus_index = 0
-        self.update_focus()
-
-        self.popup = Popup(title="Opzioni video", content=popup_layout, size_hint=(0.6, 0.4))
+        self.popup = Popup(title="Scaricamento video", content=popup_layout, size_hint=(0.6, 0.4))
         self.popup.open()
+        
+        # Avvia automaticamente il download dopo aver aperto il popup
+        Clock.schedule_once(lambda dt: self.play_video(download_link, filename=videoname), 0.1)
 
     def download_video(self, endpoint_url, filename='temp.mp4'):
         try:
@@ -180,8 +179,19 @@ class VideoListScreen(NavigableScreen):
             print(f"[!] Errore nel download: {e}")
 
     def play_video(self, endpoint_url, filename='temp.mp4'):
-        file_path = os.path.join(self.app_dir, filename)
-        print(file_path, "\n\n\n\n\n")
+        # Crea il percorso nella directory AppData/Roaming invece che nella directory dell'app
+        if DEVELOPMENT_MODE:
+            # In sviluppo, salva in una cartella accessibile
+            app_data_dir = os.path.expanduser("~/AppData/Roaming/chat")
+            if not os.path.exists(app_data_dir):
+                os.makedirs(app_data_dir)
+            file_path = os.path.join(app_data_dir, filename)
+        else:
+            # Su TV, usa la directory dell'app
+            file_path = os.path.join(self.app_dir, filename)
+            
+        print(f"Percorso di salvataggio: {file_path}")
+        
         def download_thread():
             try:
                 response = requests.get(endpoint_url, stream=True)
@@ -228,11 +238,92 @@ class VideoListScreen(NavigableScreen):
             if val == 'eof':
                 break
 
+    def open_file_cross_platform(self, filepath):
+        """Apre un file con il programma predefinito del sistema operativo (solo in modalità sviluppo)"""
+        if not DEVELOPMENT_MODE:
+            print(f"[DEBUG] Modalità TV: non apro file esterni. File scaricato: {filepath}")
+            return True
+            
+        try:
+            print(f"Tentativo di apertura file: {filepath}")
+            
+            # Verifica che il file esista
+            if not os.path.exists(filepath):
+                print(f"Errore: File non trovato: {filepath}")
+                return False
+                
+            # Verifica dimensione file
+            file_size = os.path.getsize(filepath)
+            print(f"Dimensione file: {file_size} bytes")
+            
+            if file_size == 0:
+                print("Errore: File vuoto")
+                return False
+            
+            if platform.system() == "Windows":
+                # Su Windows, prova diversi metodi
+                try:
+                    # Metodo 1: startfile
+                    os.startfile(filepath)
+                    print("File aperto con os.startfile()")
+                    return True
+                except:
+                    try:
+                        # Metodo 2: subprocess con 'start'
+                        subprocess.Popen(['start', '', filepath], shell=True)
+                        print("File aperto con subprocess start")
+                        return True
+                    except:
+                        try:
+                            # Metodo 3: prova con VLC se installato
+                            subprocess.Popen(['vlc', filepath])
+                            print("File aperto con VLC")
+                            return True
+                        except:
+                            print("Nessun metodo di apertura funzionante")
+                            return False
+            elif platform.system() == "Darwin":  # macOS
+                subprocess.Popen(["open", filepath])
+                print("File aperto con open (macOS)")
+                return True
+            else:  # Linux e altri Unix-like
+                subprocess.Popen(["xdg-open", filepath])
+                print("File aperto con xdg-open (Linux)")
+                return True
+                
+        except Exception as e:
+            print(f"Errore nell'apertura del file: {e}")
+            return False
+
+    def play_video_internal(self, filepath):
+        """Riproduzione video interna usando ffpyplayer (per TV)"""
+        try:
+            print(f"[TV MODE] Avvio riproduzione interna: {filepath}")
+            # Implementa qui la logica per la riproduzione su TV
+            # Ad esempio usando ffpyplayer con un widget Kivy personalizzato
+            self.play_with_ffpyplayer(filepath)
+            return True
+        except Exception as e:
+            print(f"Errore nella riproduzione interna: {e}")
+            return False
+
     def on_download_complete(self, filename):
         self.popup.dismiss()
-        subprocess.Popen(["xdg-open", filename])
-        print(f"[✓] Riproduzione avviata: {filename}")
-        self.play_with_ffpyplayer(filename)
+        
+        if DEVELOPMENT_MODE:
+            # MODALITÀ SVILUPPO: apre con player esterno del sistema
+            print(f"[DEV MODE] Apertura con player esterno")
+            if self.open_file_cross_platform(filename):
+                print(f"[✓] Riproduzione avviata: {filename}")
+            else:
+                print(f"[!] Impossibile aprire il file: {filename}")
+        else:
+            # MODALITÀ TV: riproduzione interna
+            print(f"[TV MODE] Riproduzione interna")
+            if self.play_video_internal(filename):
+                print(f"[✓] Riproduzione TV avviata: {filename}")
+            else:
+                print(f"[!] Errore nella riproduzione TV: {filename}")
 
 
 class ChatListScreen(NavigableScreen):
@@ -293,6 +384,18 @@ class ChatListScreen(NavigableScreen):
 
 class ChatApp(App):
     def build(self):
+        # Configurazione finestra basata sull'ambiente
+        if DEVELOPMENT_MODE:
+            # Modalità sviluppo: finestra ridimensionabile
+            Window.size = (1280, 720)
+            Window.resizable = True
+            print("[DEV MODE] Modalità sviluppo attiva - Finestra ridimensionabile")
+        else:
+            # Modalità TV: fullscreen
+            Window.fullscreen = True
+            Window.resizable = False
+            print("[TV MODE] Modalità TV attiva - Fullscreen")
+            
         sm = ScreenManager()
         sm.add_widget(ChatListScreen(screen_manager=sm, name="chat_list"))
         return sm
