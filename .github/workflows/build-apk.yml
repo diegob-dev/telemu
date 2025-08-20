@@ -1,48 +1,78 @@
-name: Build APK3
+name: Build Android APK
+
 on:
-  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # Permette build manuale
 
 jobs:
   build:
-    runs-on: ubuntu-18.04  # Versione più vecchia e stabile
+    runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Python 3.8
-      uses: actions/setup-python@v3
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.8'
-        
-    - name: Install minimal dependencies
+        python-version: '3.11'
+
+    - name: Install system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y python3-pip openjdk-8-jdk
-        pip3 install buildozer==1.4.0
-        
-    - name: Set TV mode
-      run: sed -i 's/DEVELOPMENT_MODE = True/DEVELOPMENT_MODE = False/' main.py
-      
-    - name: Create simple keystore
-      run: echo -e "\n\n\n\n\n\n\n" | keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000 -storepass bibo46 -keypass bibo46
-      
-    - name: Build
+        sudo apt-get install -y \
+          git zip unzip openjdk-17-jdk autoconf libtool pkg-config \
+          zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 \
+          cmake libffi-dev libssl-dev
+
+    - name: Set up environment variables
       run: |
-        export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-        timeout 30m buildozer android debug || echo "Build timeout or completed"
-      
-    - name: List files
-      run: find . -name "*.apk" -type f
-      
-    - name: Upload
-      if: always()
+        echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
+        echo "ANDROID_API_LEVEL=33" >> $GITHUB_ENV
+        echo "ANDROID_BUILD_TOOLS_VERSION=33.0.0" >> $GITHUB_ENV
+
+    - name: Install buildozer and dependencies
       run: |
-        mkdir -p upload
-        find . -name "*.apk" -exec cp {} upload/ \;
-        ls -la upload/
+        python -m pip install --upgrade pip
+        pip install buildozer cython
+
+    - name: Set DEVELOPMENT_MODE to False for TV
+      run: |
+        sed -i 's/DEVELOPMENT_MODE = True/DEVELOPMENT_MODE = False/g' main.py
+
+    - name: Create release keystore
+      run: |
+        keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias \
+          -keyalg RSA -keysize 2048 -validity 10000 \
+          -storepass bibo46 -keypass bibo46 \
+          -dname "CN=TelemuTV,OU=App,O=DiegoB,L=Turin,S=Piedmont,C=IT"
+
+    - name: Build APK with buildozer
+      run: |
+        buildozer android debug
         
-    - uses: actions/upload-artifact@v3
-      if: always()
+    - name: List generated files
+      run: |
+        ls -la bin/ || echo "No bin directory found"
+        find . -name "*.apk" -type f || echo "No APK files found"
+
+    - name: Upload APK as artifact
+      uses: actions/upload-artifact@v4
+      if: success()
       with:
-        name: apk-files
-        path: upload/
+        name: telemu-tv-apk
+        path: bin/*.apk
+        retention-days: 30
+
+    - name: Upload build logs on failure
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: build-logs
+        path: |
+          .buildozer/
+          buildozer.spec
+        retention-days: 7
