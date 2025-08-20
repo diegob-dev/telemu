@@ -2,9 +2,9 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, 07-external-telegram-be ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, 07-external-telegram-be ]
   workflow_dispatch:  # Permette build manuale
 
 jobs:
