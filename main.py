@@ -22,7 +22,7 @@ import threading
 
 # CONFIGURAZIONE AMBIENTE
 # Imposta True per sviluppo su PC, False per produzione su TV
-DEVELOPMENT_MODE = True
+DEVELOPMENT_MODE = False
 
 BASE_URL = 'https://tele-tv-be.onrender.com'
 
@@ -102,6 +102,41 @@ class VideoListScreen(NavigableScreen):
     def go_back(self, instance):
         self.screen_manager.current = "chat_list"
 
+    def format_file_size(self, size_bytes):
+        """Converte i bytes in formato leggibile (KB, MB, GB)"""
+        if size_bytes == 0:
+            return "0 B"
+        
+        for unit in ['B', 'KB', 'MB', 'GB']:
+            if size_bytes < 1024.0:
+                return f"{size_bytes:.1f} {unit}"
+            size_bytes /= 1024.0
+        return f"{size_bytes:.1f} TB"
+
+    def format_duration(self, duration_seconds):
+        """Converte i secondi in formato mm:ss o hh:mm:ss"""
+        if not duration_seconds or duration_seconds == 0:
+            return "N/A"
+        
+        duration_seconds = int(duration_seconds)
+        hours = duration_seconds // 3600
+        minutes = (duration_seconds % 3600) // 60
+        seconds = duration_seconds % 60
+        
+        if hours > 0:
+            return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+        else:
+            return f"{minutes:02d}:{seconds:02d}"
+
+    def format_date(self, date_string):
+        """Converte la data ISO in formato leggibile"""
+        try:
+            from datetime import datetime
+            dt = datetime.fromisoformat(date_string.replace('Z', '+00:00'))
+            return dt.strftime("%d/%m/%Y %H:%M")
+        except:
+            return "Data N/A"
+
     def load_videos(self):
         self.buttons.clear()
         self.video_list.clear_widgets()
@@ -116,12 +151,20 @@ class VideoListScreen(NavigableScreen):
                 if video.get("isVideo"):
                     url = f"{self.video_api}/{video['id']}"
                     video_name = video.get("file_name", f"video_{i}.mp4")
+                    video_date = video.get("date", "")
+                    
+                    # Formatta la data
+                    date_str = self.format_date(video_date)
+                    
+                    # Crea il testo del pulsante con titolo e data
+                    button_text = f"[b]{video_name}[/b]\n[size=12][color=888888]📅 {date_str}[/color][/size]"
+                    
                     self.video_chat_list[video['id']] = video_name
 
                     video_button = Button(
-                        text=video_name,
+                        text=button_text,
                         size_hint_y=None,
-                        height=100,
+                        height=120,  # Altezza per ospitare titolo + data
                         text_size=(None, None),
                         halign="center",
                         valign="middle",
@@ -156,10 +199,14 @@ class VideoListScreen(NavigableScreen):
         self.progress_bar = ProgressBar(max=100, value=0, size_hint_y=None, height=20)
         popup_layout.add_widget(self.progress_bar)
 
+        # Info aggiuntiva per dimensione file
+        self.file_size_label = Label(text="", font_size='12sp', color=(0.7, 0.7, 0.7, 1))
+        popup_layout.add_widget(self.file_size_label)
+
         # Nessun pulsante - il download parte automaticamente
         self.buttons = []  # Lista vuota, nessun pulsante da navigare
 
-        self.popup = Popup(title="Scaricamento video", content=popup_layout, size_hint=(0.6, 0.4))
+        self.popup = Popup(title="Scaricamento video", content=popup_layout, size_hint=(0.6, 0.5))
         self.popup.open()
         
         # Avvia automaticamente il download dopo aver aperto il popup
@@ -203,6 +250,9 @@ class VideoListScreen(NavigableScreen):
                     Clock.schedule_once(lambda dt: setattr(self.progress_label, 'text', "Dimensione sconosciuta, scaricamento in corso..."))
                 else:
                     total_length_int = int(total_length)
+                    # Mostra la dimensione del file
+                    file_size_str = self.format_file_size(total_length_int)
+                    Clock.schedule_once(lambda dt: self.update_progress(0, file_size_str))
 
                 downloaded = 0
 
@@ -213,9 +263,10 @@ class VideoListScreen(NavigableScreen):
                             downloaded += len(chunk)
                             if total_length_int:
                                 percent = int(downloaded * 100 / total_length_int)
-                                Clock.schedule_once(lambda dt, p=percent: self.update_progress(p))
+                                file_size_str = self.format_file_size(total_length_int)
+                                Clock.schedule_once(lambda dt, p=percent, fs=file_size_str: self.update_progress(p, fs))
                             else:
-                                Clock.schedule_once(lambda dt, d=downloaded: setattr(self.progress_label, 'text', f"Scaricamento... {d} byte"))
+                                Clock.schedule_once(lambda dt, d=downloaded: setattr(self.progress_label, 'text', f"Scaricamento... {self.format_file_size(d)}"))
 
                 Clock.schedule_once(lambda dt: self.on_download_complete(file_path))
 
@@ -225,9 +276,11 @@ class VideoListScreen(NavigableScreen):
 
         threading.Thread(target=download_thread, daemon=True).start()
 
-    def update_progress(self, percent):
+    def update_progress(self, percent, file_size_str=""):
         self.progress_bar.value = percent
         self.progress_label.text = f"Scaricamento... {percent}%"
+        if hasattr(self, 'file_size_label') and file_size_str:
+            self.file_size_label.text = f"Dimensione: {file_size_str}"
         
 
     def play_with_ffpyplayer(self, filepath):
@@ -308,7 +361,19 @@ class VideoListScreen(NavigableScreen):
             return False
 
     def on_download_complete(self, filename):
-        self.popup.dismiss()
+        # Ferma l'animazione dello spinner (con controllo di sicurezza)
+        if hasattr(self, 'spinner_event') and self.spinner_event:
+            self.spinner_event.cancel()
+        if hasattr(self, 'spinner_label'):
+            self.spinner_label.text = "✅"  # Checkmark per completato
+        
+        # Aggiorna il testo
+        if hasattr(self, 'progress_label'):
+            self.progress_label.text = "Download completato! Apertura video..."
+        
+        # Piccolo delay prima di chiudere la popup
+        if hasattr(self, 'popup'):
+            Clock.schedule_once(lambda dt: self.popup.dismiss(), 1.0)
         
         if DEVELOPMENT_MODE:
             # MODALITÀ SVILUPPO: apre con player esterno del sistema
