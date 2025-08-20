@@ -15,7 +15,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup Python
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
@@ -33,7 +33,6 @@ jobs:
         echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
         echo "ANDROID_API_LEVEL=33" >> $GITHUB_ENV
         echo "ANDROID_BUILD_TOOLS_VERSION=33.0.0" >> $GITHUB_ENV
-
 
     - name: Install buildozer and dependencies
       run: |
